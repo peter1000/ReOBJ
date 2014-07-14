@@ -26,6 +26,7 @@ cleanall: clean
 	@rm -rf build dist cover zipped_docs
 	@rm -rf docs/ReOBJ-DOCUMENTATION
 	@rm -rf info/GENERAL-INFO
+	@rm -rf docs/source/ReOBJ.rst docs/source/modules.rst
 
 clean:
 	@find . -iname '__pycache__' |xargs rm -rf
