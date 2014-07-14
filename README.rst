@@ -179,7 +179,7 @@ Projects using ReOBJ
 
 `HealthNutritionPlanner <https://github.com/peter1000/HealthNutritionPlanner>`_  (Plan: weight loss, healthy diets, meals.)
 
-`JqPyCharts <https://github.com/peter1000/JqPyCharts>`_  (Selection of: Javascripts / Css)
+`JqPyCharts <https://github.com/peter1000/JqPyCharts>`_  (Selection of: Javascripts / Css for simple charts)
 
 |
 |
