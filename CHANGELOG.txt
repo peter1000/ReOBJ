@@ -1,4 +1,4 @@
-xxxx-xx-xx    1.0.1
+xxxx-xx-xx    1.0.2
 -------------------
    * FIXED ERRORS:
    * NEW ADDED:
@@ -7,6 +7,17 @@ xxxx-xx-xx    1.0.1
    * DOCUMENTATION:
    * OTHER CHANGES:
 
+xxxx-xx-xx    1.0.1
+-------------------
+   * FIXED ERRORS:
+      - some typos
+   * NEW ADDED:
+   * UPDATED, IMPROVEMENTS:
+   * REMOVED:
+   * DOCUMENTATION:
+   * OTHER CHANGES:
+      - removed: from `projects` which make use of: **ReOBJ**
+         - LCONF, DOCK, HealthNutritionPlanner
 
 2014-07-14    1.0.0
 -------------------

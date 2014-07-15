@@ -806,7 +806,7 @@ def _helper_find_duplicates(seq):
 class Lmatrix(ReBase, list):
    """ An extended MATRIX (List-Of-Tuples): E(xtended) with the additional methods of the `ReBase class`
 
-   Tuple items  (rows) should only be simple objects: no nested list, dictionary: this is not enforces but not all other methods support such:
+   Tuple items (rows) should only be simple objects: no nested list, dictionary: this is not enforces but not all other methods support such:
 
       e.g.: copy_recursively_to_python_native_types()
 

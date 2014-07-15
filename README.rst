@@ -173,12 +173,6 @@ Projects using ReOBJ
 `projects` which make use of: **ReOBJ**
 
 
-`LCONF <https://github.com/peter1000/LCONF>`_  (L(ight) CONF(iguration): A simple human-readable data serialization format for dynamic configuration.)
-
-`DOCK <https://github.com/peter1000/DOCK>`_  (A `docker` linux desktop with permission configuration.)
-
-`HealthNutritionPlanner <https://github.com/peter1000/HealthNutritionPlanner>`_  (Plan: weight loss, healthy diets, meals.)
-
 |
 |
 
