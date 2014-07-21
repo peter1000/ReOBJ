@@ -49,7 +49,7 @@ Additional Required Software
 Additional Recommended Software
 ===============================
 
-- SpeedIT >= 3.0.0  (Speed-IT Collection of: Benchmark-IT, Profile-IT, Line-Memory-Profile-IT, Disassemble-IT.)
+- SpeedIT >= 4.0.0  (Speed-IT Collection of: Benchmark-IT, Profile-IT, Line-Memory-Profile-IT, Disassemble-IT.)
 
    - `<https://github.com/peter1000/SpeedIT>`_
 
@@ -70,7 +70,7 @@ Additional Recommended Software
    - `<https://pypi.python.org/pypi/pip/>`_
    - `<https://github.com/pypa/pip/>`_
 
-- PyCharm Community Edition >= 3.4 138.SNAPSHOT (20140626)  (Excellent IDE for the Python language)
+- PyCharm Community Edition >= 3.4 138.SNAPSHOT (20140721)  (Excellent IDE for the Python language)
 
    - `<http://www.jetbrains.com/pycharm/>`_
 

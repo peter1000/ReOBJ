@@ -1,10 +1,6 @@
 """ ReListTupleSpeedCreateInitialize
 """
-from collections import (
-   OrderedDict,
-   namedtuple,
-   UserDict
-)
+from collections import UserList
 
 from inspect import (
    getfile,
@@ -19,9 +15,9 @@ import sys
 from sys import path as syspath
 
 try:
-   from SpeedIT.BenchmarkIT import speedit_func_benchmark_list
+   from SpeedIT.MainCode import speed_it
 except ImportError as err:
-   sys.exit('Example SpeedTest: Can not run example. This example needs the package <SpeedIT> to be installed: <{}>'.format(err))
+   sys.exit('Example SpeedTest: Can not run example. This example needs the package <SpeedIT >= 4.0.0> to be installed: <{}>'.format(err))
 
 SCRIPT_PATH = dirname(abspath(getfile(currentframe())))
 PROJECT_ROOT = dirname(SCRIPT_PATH)
@@ -197,7 +193,7 @@ def init__etuple_constructor_with_tuple():
 def main():
    pass
 
-   func_list = {
+   func_dict = {
       'init__py_list_direct': (init__py_list_direct, [], {}),
       'init__py_list_constructor': (init__py_list_constructor, [], {}),
       'init__py_tuple_direct': (init__py_tuple_direct, [], {}),
@@ -211,16 +207,13 @@ def main():
    }
 
    setup_line_list = [
-      'from collections import UserList, namedtuple',
+      'from collections import UserList',
       'from ReOBJ.MainCode import Elist, Rlist, RlistF, Etuple',
    ]
 
-   check_run_sec = 1
    with open('result_output/ReListTupleSpeedCreateInitialize.txt', 'w') as file_:
       file_.write('\n\n ReListTupleSpeedCreateInitialize.py output\n\n')
-      for count in range(4):
-         file_.write('\n'.join(speedit_func_benchmark_list(func_list, setup_line_list, run_sec=check_run_sec, out_put_in_sec=False, use_func_name=False)))
-         file_.write('\n\n')
+      file_.write(speed_it(func_dict, setup_line_list, use_func_name=True, output_in_sec=False, with_gc=False, rank_by='best', run_sec=1, repeat=3))
 
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

@@ -21,7 +21,7 @@ extensions = []
 source_suffix = '.rst'
 
 # The encoding of source files.
-#source_encoding = 'utf-8-sig'
+# source_encoding = 'utf-8-sig'
 
 # The master toctree document.
 master_doc = 'index'
@@ -49,8 +49,8 @@ html_theme = 'default'
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    "bodyfont": "Arial, sans-serif",
-    "headfont": "Arial, sans-serif"
+   "bodyfont": "Arial, sans-serif",
+   "headfont": "Arial, sans-serif"
 }
 
 # The name of an image file (relative to this directory) to place at the top
@@ -62,7 +62,7 @@ html_logo = 'img/peter1000.png'
 html_last_updated_fmt = '%b %d, %Y'
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+# html_sidebars = {}
 
 # If false, no module index is generated.
 html_domain_indices = True
@@ -75,8 +75,8 @@ html_show_copyright = True
 
 # Language to be used for generating the HTML full-text search index.
 # Sphinx supports the following languages:
-#   'da', 'de', 'en', 'es', 'fi', 'fr', 'h', 'it', 'ja'
-#   'nl', 'no', 'pt', 'ro', 'r', 'sv', 'tr'
+# 'da', 'de', 'en', 'es', 'fi', 'fr', 'h', 'it', 'ja'
+# 'nl', 'no', 'pt', 'ro', 'r', 'sv', 'tr'
 html_search_language = 'en'
 
 # Output file base name for HTML help builder.

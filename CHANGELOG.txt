@@ -1,4 +1,4 @@
-xxxx-xx-xx    1.0.2
+xxxx-xx-xx    1.1.1
 -------------------
    * FIXED ERRORS:
    * NEW ADDED:
@@ -7,17 +7,23 @@ xxxx-xx-xx    1.0.2
    * DOCUMENTATION:
    * OTHER CHANGES:
 
-xxxx-xx-xx    1.0.1
+2014-07-21    1.1.0
 -------------------
+   * Release v. 1.1.0
+
    * FIXED ERRORS:
       - some typos
-   * NEW ADDED:
+      - ReMatrixSpeedCreateInitialize.py error twice: init__py_tuple_of_tuples_direct
+      - ReListTupleSpeedCreateInitialize.py: missing import of UserList
    * UPDATED, IMPROVEMENTS:
-   * REMOVED:
-   * DOCUMENTATION:
+      - adjusted SpeedCheck: to use SpeedIT=>4.0.0
+      - MainCode.py:
+         - access data from __dict__ with attribute lookup
+         - replaced function: _helper_find_duplicates with a new own one using dict() instead of set() which is slightly faster
+         - updated and corrected typo in: Lmatrix.this_column_values()
    * OTHER CHANGES:
-      - removed: from `projects` which make use of: **ReOBJ**
-         - LCONF, DOCK, HealthNutritionPlanner
+      - from root README.rst: from `projects` which make use of: **ReOBJ**
+         - removed: LCONF, DOCK, HealthNutritionPlanner
 
 2014-07-14    1.0.0
 -------------------

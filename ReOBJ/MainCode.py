@@ -120,24 +120,24 @@ class ReBase(object):
 
       def inner_copy(input_):
          if isinstance(input_, RdictIO):
-            temp_new = type(input_)([(key, inner_copy(input_[key])) for key in input_.__dict__['key_order']], input_.__dict__['use_tuple_values'])
-            temp_new.__dict__['extra_key_order'] = input_.__dict__['extra_key_order'].copy()
-            temp_new.__dict__['extra_data'] = input_.__dict__['extra_data'].copy()
+            temp_new = type(input_)([(key, inner_copy(input_[key])) for key in input_.key_order], input_.use_tuple_values)
+            temp_new.__dict__['extra_key_order'] = input_.extra_key_order.copy()
+            temp_new.__dict__['extra_data'] = input_.extra_data.copy()
             # key_order / extra_data: no need to copy that separately it is done at __init__
             return temp_new
          elif isinstance(input_, (Rdict, Edict)):
             temp_new = type(input_)((key, inner_copy(value)) for key, value in input_.items())
             if 'extra_data' in input_.__dict__:
-               temp_new.__dict__['extra_data'] = input_.__dict__['extra_data'].copy()
+               temp_new.__dict__['extra_data'] = input_.extra_data.copy()
             return temp_new
          elif isinstance(input_, (Rlist, Elist, Etuple)):
             temp_new = type(input_)([inner_copy(value) for value in input_])
             if 'extra_data' in input_.__dict__:
-               temp_new.__dict__['extra_data'] = input_.__dict__['extra_data'].copy()
+               temp_new.__dict__['extra_data'] = input_.extra_data.copy()
             return temp_new
          elif isinstance(input_, Lmatrix):
-            temp_new = type(input_)(input_.column_names, [tuple_row for tuple_row in input_], input_.__dict__['unique_column_names'])
-            temp_new.__dict__['extra_data'] = input_.__dict__['extra_data'].copy()
+            temp_new = type(input_)(input_.column_names, [tuple_row for tuple_row in input_], input_.unique_column_names)
+            temp_new.__dict__['extra_data'] = input_.extra_data.copy()
             # column_names, column_names_idx_lookup, column_names_counted: no need to copy that separately it is done at __init__
             return temp_new
          elif isinstance(input_, dict):
@@ -177,9 +177,9 @@ class ReBase(object):
       def inner_copy(input_):
          if isinstance(input_, RdictIO):
             if use_extra_key_order:
-               return OrderedDict([(key, inner_copy(input_[key])) for key in input_.__dict__['extra_key_order']])
+               return OrderedDict([(key, inner_copy(input_[key])) for key in input_.extra_key_order])
             else:
-               return OrderedDict([(key, inner_copy(input_[key])) for key in input_.__dict__['key_order']])
+               return OrderedDict([(key, inner_copy(input_[key])) for key in input_.key_order])
          elif isinstance(input_, (Rdict, Edict)):
             return dict((key, inner_copy(value)) for key, value in input_.items())
          elif isinstance(input_, (Rlist, Elist)):
@@ -484,7 +484,7 @@ class RdictIO(Rdict):
 
          self.__dict__['key_order'] = [item[0] for item in key_value_list]
          if init_extra_key_order:
-            self.__dict__['extra_key_order'] = self.__dict__['key_order'].copy()
+            self.__dict__['extra_key_order'] = self.key_order.copy()
          else:
             self.__dict__['extra_key_order'] = []
          self.__dict__['extra_data'] = {}
@@ -517,7 +517,7 @@ class RdictIO(Rdict):
       Yields:
          (keys, value) in the order of the `key_order (list)`
       """
-      for key in self.__dict__['key_order']:
+      for key in self.key_order:
          yield key, self[key]
 
    def yield_extra_key_value_order(self):
@@ -526,7 +526,7 @@ class RdictIO(Rdict):
       Yields:
          (keys, value) in the order of the `extra_key_order (list)`
       """
-      for key in self.__dict__['extra_key_order']:
+      for key in self.extra_key_order:
          yield key, self[key]
 
    def replace_extra_key_order(self, new_extra_key_order_list):
@@ -541,8 +541,8 @@ class RdictIO(Rdict):
          ReOBJ.Err: if any key from new_extra_key_order is not found in the default `key_order (list)`
       """
       for key in new_extra_key_order_list:
-         if key not in self.__dict__['key_order']:
-            raise Err('RdictIO.replace_extra_key_order()', 'Error: `new_extra_key_order_list` key: <{}>\n  was not found in the default `key_order (list)`:\n    <{}>'.format(key, self.__dict__['key_order']))
+         if key not in self.key_order:
+            raise Err('RdictIO.replace_extra_key_order()', 'Error: `new_extra_key_order_list` key: <{}>\n  was not found in the default `key_order (list)`:\n    <{}>'.format(key, self.key_order))
       self.__dict__['extra_key_order'] = new_extra_key_order_list
 
    def appendto_extra_key_value_order(self, new_key):
@@ -556,8 +556,8 @@ class RdictIO(Rdict):
       Raises:
          ReOBJ.Err: if the `new_key` is not found in the default `key_order (list)`
       """
-      if new_key not in self.__dict__['key_order']:
-         raise Err('RdictIO.replace_extra_key_order()', 'Error: new_key: <{}>\n  was not found in the default `key_order (list)`:\n    <{}>'.format(new_key, self.__dict__['key_order']))
+      if new_key not in self.key_order:
+         raise Err('RdictIO.replace_extra_key_order()', 'Error: new_key: <{}>\n  was not found in the default `key_order (list)`:\n    <{}>'.format(new_key, self.key_order))
       self.__dict__['extra_key_order'].append(new_key)
 
    def __reduce__(self):
@@ -565,7 +565,7 @@ class RdictIO(Rdict):
       """
       items = [(key, self[key]) for key in self]
       inst_dict = self.__dict__.copy()
-      inst_use_tuple_values = self.__dict__['use_tuple_values']
+      inst_use_tuple_values = self.use_tuple_values
       return (self.__class__, (items, inst_use_tuple_values,), inst_dict)
 
    @staticmethod
@@ -792,15 +792,16 @@ class Etuple(ReBase, tuple):
 
 # ================================== R/E MATRIX ================================== #
 def _helper_find_duplicates(seq):
-   """ Helper Returns a set of duplicates
-   # http://stackoverflow.com/questions/9835762/find-and-list-duplicates-in-python-list
-
+   """ Helper Returns a list of duplicates
    """
-   # http://stackoverflow.com/questions/9835762/find-and-list-duplicates-in-python-list
-   # adds all elements it doesn't know yet to seen and all other to seen_twice
-   seen = set()
-   seen_twice = set(item for item in seq if item in seen or seen.add(item))
-   return seen_twice
+   seen = {}
+   seen_twice = {}
+   for item in seq:
+      if item in seen:
+         seen_twice[item] = None
+      else:
+         seen[item] = None
+   return seen_twice.keys()
 
 
 class Lmatrix(ReBase, list):
@@ -862,7 +863,7 @@ class Lmatrix(ReBase, list):
          ReOBJ.Err
       """
       if isinstance(new_column_names_tuple, tuple):
-         if len(new_column_names_tuple) == self.__dict__['column_names_counted']:
+         if len(new_column_names_tuple) == self.column_names_counted:
             self.__dict__['column_names'] = new_column_names_tuple
             self.__dict__['column_names_idx_lookup'] = {key: idx for idx, key in enumerate(new_column_names_tuple)}
             return
@@ -878,12 +879,12 @@ class Lmatrix(ReBase, list):
       Returns:
          list: all items of the column for all rows
       """
-      if column_name not in self.__dict__['column_names']:
-         raise Err('Lmatrix.append()', 'column_name: <{}> is not a valid one.\n   Registered names: <{}>'.format(column_name, self.__dict__['column_names']))
+      if column_name in self.column_names:
+         idx = self.column_names_idx_lookup[column_name]
+         return [row[idx] for row in self]
+      else:
+         raise Err('Lmatrix.this_column_values()', 'column_name: <{}> is not a valid one.\n   Registered names: <{}>'.format(column_name, self.column_names))
 
-      # get the index  check if we have a unique name
-      idx = self.__dict__['column_names_idx_lookup'][column_name]
-      return [row[idx] for row in self]
 
    def __setitem__(self, idx, row_tuple):
       """ Called to implement assignment to self[idx].
@@ -895,7 +896,7 @@ class Lmatrix(ReBase, list):
          IndexError:: if out of `idx`
       """
       if isinstance(row_tuple, tuple):
-         if len(row_tuple) == self.__dict__['column_names_counted']:
+         if len(row_tuple) == self.column_names_counted:
             list.__setitem__(self, idx, row_tuple)
             return
       raise Err('Lmatrix.__setitem__()', 'item to append must be a <tuple> with: <{}> items: We got type: <{}>\n   <{}>'.format(self.__dict__['column_names_counted'], type(row_tuple), row_tuple))
@@ -908,7 +909,7 @@ class Lmatrix(ReBase, list):
          row_tuple (tuple): tuple must have the same number of items as: the original `tuple_column_names`
       """
       if isinstance(row_tuple, tuple):
-         if len(row_tuple) == self.__dict__['column_names_counted']:
+         if len(row_tuple) == self.column_names_counted:
             list.append(self, row_tuple)
             return
       raise Err('Lmatrix.append()', 'item to append must be a <tuple> with: <{}> items: We got type: <{}>\n   <{}>'.format(self.__dict__['column_names_counted'], type(row_tuple), row_tuple))
@@ -921,7 +922,7 @@ class Lmatrix(ReBase, list):
          row_tuple (tuple): tuple must have the same number of items as: the original `tuple_column_names`
       """
       if isinstance(row_tuple, tuple):
-         if len(row_tuple) == self.__dict__['column_names_counted']:
+         if len(row_tuple) == self.column_names_counted:
             list.insert(self, idx, row_tuple)
             return
       raise Err('Lmatrix.insert()', 'item to insert must be a <tuple> with: <{}> items: We got type: <{}>\n   <{}>'.format(self.__dict__['column_names_counted'], type(row_tuple), row_tuple))
@@ -934,7 +935,7 @@ class Lmatrix(ReBase, list):
          other_matrix: must have same number of column names
       """
       if isinstance(other_matrix, Lmatrix):
-         if other_matrix.__dict__['column_names_counted'] == self.__dict__['column_names_counted']:
+         if other_matrix.__dict__['column_names_counted'] == self.column_names_counted:
             list.extend(self, other_matrix)
             return
       raise Err('Lmatrix.extend()', 'item to extend must be a <Lmatrix or Subclass> with: <{}> column names: We got type: <{}>\n   column_names_counted: <{}>\n    rows: <{}>'.format(self.__dict__['column_names_counted'], type(other_matrix), other_matrix.__dict__['column_names_counted'], other_matrix))

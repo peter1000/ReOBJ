@@ -53,4 +53,4 @@ setuptools.setup(
    long_description=open("README.rst", "r").read(),
 )
 
-#use: make to generate a source distribution tar
+# use: make to generate a source distribution tar

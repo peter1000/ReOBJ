@@ -16,7 +16,7 @@ from os import path
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+# sys.path.insert(0, os.path.abspath('.'))
 SCRIPT_PATH = path.dirname(path.abspath(inspect.getfile(inspect.currentframe())))
 PROJECT_ROOT = path.dirname(path.dirname(SCRIPT_PATH))
 sys.path.insert(0, PROJECT_ROOT)
@@ -33,7 +33,7 @@ from ReOBJ import Version
 extensions = [
    'sphinx.ext.autodoc',
    'sphinx.ext.coverage',
-   #'sphinx.ext.napoleon',   for new sphinx 3+
+   # 'sphinx.ext.napoleon',   for new sphinx 3+
    'sphinxcontrib.napoleon'
 ]
 
@@ -45,7 +45,7 @@ napoleon_numpy_docstring = False
 source_suffix = '.rst'
 
 # The encoding of source files.
-#source_encoding = 'utf-8-sig'
+# source_encoding = 'utf-8-sig'
 
 # The master toctree document.
 master_doc = 'index'
@@ -81,8 +81,8 @@ html_theme = 'default'
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    "bodyfont": "Arial, sans-serif",
-    "headfont": "Arial, sans-serif"
+   "bodyfont": "Arial, sans-serif",
+   "headfont": "Arial, sans-serif"
 }
 
 # The name of an image file (relative to this directory) to place at the top
@@ -94,7 +94,7 @@ html_logo = 'img/peter1000.png'
 html_last_updated_fmt = '%b %d, %Y'
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+# html_sidebars = {}
 
 # If false, no module index is generated.
 html_domain_indices = True
@@ -107,7 +107,7 @@ html_show_copyright = True
 
 # Language to be used for generating the HTML full-text search index.
 # Sphinx supports the following languages:
-#   'da', 'de', 'en', 'es', 'fi', 'fr', 'h', 'it', 'ja'
+# 'da', 'de', 'en', 'es', 'fi', 'fr', 'h', 'it', 'ja'
 #   'nl', 'no', 'pt', 'ro', 'r', 'sv', 'tr'
 html_search_language = 'en'
 

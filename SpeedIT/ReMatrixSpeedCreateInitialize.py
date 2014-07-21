@@ -13,9 +13,9 @@ import sys
 from sys import path as syspath
 
 try:
-   from SpeedIT.BenchmarkIT import speedit_func_benchmark_list
+   from SpeedIT.MainCode import speed_it
 except ImportError as err:
-   sys.exit('Example SpeedTest: Can not run example. This example needs the package <SpeedIT> to be installed: <{}>'.format(err))
+   sys.exit('Example SpeedTest: Can not run example. This example needs the package <SpeedIT >= 4.0.0> to be installed: <{}>'.format(err))
 
 SCRIPT_PATH = dirname(abspath(getfile(currentframe())))
 PROJECT_ROOT = dirname(SCRIPT_PATH)
@@ -224,9 +224,9 @@ def init__elist_of_tuples_constructor__with_tuple():
 def main():
    pass
 
-   func_list = {
+   func_dict = {
       'init__py_list_of_tuples_direct': (init__py_list_of_tuples_direct, [], {}),
-      'init__py_list_of_tuples_constructor': (init__py_tuple_of_tuples_direct, [], {}),
+      'init__py_list_of_tuples_constructor': (init__py_list_of_tuples_constructor, [], {}),
 
       'init__py_tuple_of_tuples_direct': (init__py_tuple_of_tuples_direct, [], {}),
       'init__py_tuple_of_tuples_constructor__with_list': (init__py_tuple_of_tuples_constructor__with_list, [], {}),
@@ -255,12 +255,9 @@ def main():
       'from ReOBJ.MainCode import Lmatrix, LmatrixF, Etuple, Elist',
    ]
 
-   check_run_sec = 0.1
    with open('result_output/ReMatrixSpeedCreateInitialize.txt', 'w') as file_:
       file_.write('\n\n ReMatrixSpeedCreateInitialize.py output\n\n')
-      for count in range(4):
-         file_.write('\n'.join(speedit_func_benchmark_list(func_list, setup_line_list, run_sec=check_run_sec, out_put_in_sec=False, use_func_name=False)))
-         file_.write('\n\n')
+      file_.write(speed_it(func_dict, setup_line_list, use_func_name=True, output_in_sec=False, with_gc=False, rank_by='best', run_sec=1, repeat=3))
 
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #

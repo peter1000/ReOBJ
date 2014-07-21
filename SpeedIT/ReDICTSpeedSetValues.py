@@ -14,9 +14,9 @@ import sys
 from sys import path as syspath
 
 try:
-   from SpeedIT.BenchmarkIT import speedit_func_benchmark_list
+   from SpeedIT.MainCode import speed_it
 except ImportError as err:
-   sys.exit('Example SpeedTest: Can not run example. This example needs the package <SpeedIT> to be installed: <{}>'.format(err))
+   sys.exit('Example SpeedTest: Can not run example. This example needs the package <SpeedIT >= 4.0.0> to be installed: <{}>'.format(err))
 
 SCRIPT_PATH = dirname(abspath(getfile(currentframe())))
 PROJECT_ROOT = dirname(SCRIPT_PATH)
@@ -281,12 +281,9 @@ def main():
       'from __main__ import py_dict_direct_obj, py_dict_constructor_obj, py_ordereddict_obj, rdict_obj, rdictf_obj, rdictio_obj, rdictfo_obj, edict_obj',
    ]
 
-   check_run_sec = 1
    with open('result_output/SpeedSetValues.txt', 'w') as file_:
       file_.write('\n\n SpeedSetValues.py output\n\n')
-      for count in range(3):
-         file_.write('\n'.join(speedit_func_benchmark_list(func_dict, setup_line_list, run_sec=check_run_sec, out_put_in_sec=False, use_func_name=False)))
-         file_.write('\n\n')
+      file_.write(speed_it(func_dict, setup_line_list, use_func_name=True, output_in_sec=False, with_gc=False, rank_by='best', run_sec=1, repeat=3))
 
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
